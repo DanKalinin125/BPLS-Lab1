@@ -1,4 +1,4 @@
-package com.example.bplslab1.models;
+package com.example.bplslab1.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,21 +11,15 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="NewsRequests")
-public class NewsRequest {
+@Table(name="Subscriptions")
+public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "imageUrl")
-    private String imageUrl;
-
-    @Column(name = "newsRequestTitle", nullable = false)
-    private String title;
-
-    @Column(name = "newsRequestText", nullable = false, columnDefinition = "TEXT")
-    private String text;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "creationDateTime", nullable = false)
     private Date creationDateTime;

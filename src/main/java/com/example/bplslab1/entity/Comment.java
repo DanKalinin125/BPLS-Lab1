@@ -1,4 +1,4 @@
-package com.example.bplslab1.models;
+package com.example.bplslab1.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
