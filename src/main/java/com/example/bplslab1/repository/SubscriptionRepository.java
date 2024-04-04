@@ -1,6 +1,6 @@
-package com.example.bplslab1.repositories;
+package com.example.bplslab1.repository;
 
-import com.example.bplslab1.models.Subscription;
+import com.example.bplslab1.entity.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
