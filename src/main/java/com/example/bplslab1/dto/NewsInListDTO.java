@@ -9,6 +9,7 @@ import java.util.Date;
 @Builder
 public class NewsInListDTO {
     private ImageDTO image;
+    private long id;
     private String title;
     private Date creationDateTime;
 }

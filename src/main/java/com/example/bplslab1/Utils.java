@@ -7,15 +7,15 @@ import com.example.bplslab1.entity.News;
 import com.example.bplslab1.entity.NewsRequest;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public class Utils {
-    public static Date getCurrentDateTime(){
+    public static Date getCurrentDateTime() {
         return new Date(Instant.now().toEpochMilli());
     }
 
@@ -27,7 +27,7 @@ public class Utils {
         deflater.finish();
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-        byte[] tmp = new byte[4*1024];
+        byte[] tmp = new byte[4 * 1024];
         while (!deflater.finished()) {
             int size = deflater.deflate(tmp);
             outputStream.write(tmp, 0, size);
@@ -44,7 +44,7 @@ public class Utils {
         Inflater inflater = new Inflater();
         inflater.setInput(data);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-        byte[] tmp = new byte[4*1024];
+        byte[] tmp = new byte[4 * 1024];
         try {
             while (!inflater.finished()) {
                 int count = inflater.inflate(tmp);
@@ -56,7 +56,7 @@ public class Utils {
         return outputStream.toByteArray();
     }
 
-    public static ImageDTO imageToImageDTO(Image image){
+    public static ImageDTO imageToImageDTO(Image image) {
         return ImageDTO.builder()
                 .id(image.getId())
                 .name(image.getName())
@@ -64,15 +64,16 @@ public class Utils {
                 .build();
     }
 
-    public static NewsInListDTO newsToNewsInListDTO(News news){
+    public static NewsInListDTO newsToNewsInListDTO(News news) {
         return NewsInListDTO.builder()
                 .image(Utils.imageToImageDTO(news.getImage()))
+                .id(news.getId())
                 .title(news.getTitle())
                 .creationDateTime(news.getCreationDateTime())
                 .build();
     }
 
-    public static News newsCreateDTOToNews(NewsCreateDTO newsCreateDTO, Image image){
+    public static News newsCreateDTOToNews(NewsCreateDTO newsCreateDTO, Image image) {
         return News.builder()
                 .image(image)
                 .title(newsCreateDTO.getTitle())
@@ -81,7 +82,7 @@ public class Utils {
                 .build();
     }
 
-    public static List<CommentDTO> commentListToCommentDTOList(List<Comment> commentList){
+    public static List<CommentDTO> commentListToCommentDTOList(List<Comment> commentList) {
         List<CommentDTO> commentDTOList = new ArrayList<>();
         if (commentList != null) {
             for (Comment comment : commentList) {
@@ -97,7 +98,7 @@ public class Utils {
         return commentDTOList;
     }
 
-    public static NewsPageDTO newsToNewsPageDTO(News news){
+    public static NewsPageDTO newsToNewsPageDTO(News news) {
         return NewsPageDTO.builder()
                 .image(imageToImageDTO(news.getImage()))
                 .title(news.getTitle())
@@ -107,7 +108,7 @@ public class Utils {
                 .build();
     }
 
-    public static Comment commentCreateDTOToComment(CommentCreateDTO dto, News news){
+    public static Comment commentCreateDTOToComment(CommentCreateDTO dto, News news) {
         return Comment.builder()
                 .news(news)
                 .username(dto.getUsername())
@@ -117,7 +118,7 @@ public class Utils {
                 .build();
     }
 
-    public static CommentDTO commentToCommentDTO(Comment comment){
+    public static CommentDTO commentToCommentDTO(Comment comment) {
         return CommentDTO.builder()
                 .id(comment.getId())
                 .username(comment.getUsername())
@@ -127,7 +128,7 @@ public class Utils {
                 .build();
     }
 
-    public static NewsRequest newsRequestCreateDTOToNewsRequest(NewsRequestCreateDTO dto, Image image){
+    public static NewsRequest newsRequestCreateDTOToNewsRequest(NewsRequestCreateDTO dto, Image image) {
         return NewsRequest.builder()
                 .image(image)
                 .title(dto.getTitle())
@@ -136,7 +137,7 @@ public class Utils {
                 .build();
     }
 
-    public static NewsRequestPageDTO newsRequestToNewsRequestPageDTO(NewsRequest newsRequest){
+    public static NewsRequestPageDTO newsRequestToNewsRequestPageDTO(NewsRequest newsRequest) {
         return NewsRequestPageDTO.builder()
                 .image(imageToImageDTO(newsRequest.getImage()))
                 .title(newsRequest.getTitle())

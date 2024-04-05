@@ -1,7 +1,6 @@
 package com.example.bplslab1.controller;
 
 import com.example.bplslab1.dto.*;
-import com.example.bplslab1.entity.News;
 import com.example.bplslab1.service.NewsRequestService;
 import com.example.bplslab1.service.NewsService;
 import lombok.AllArgsConstructor;
@@ -28,8 +27,8 @@ public class NewsController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestPart("image") MultipartFile file,
-                                       String title,
-                                       String text){
+                                    String title,
+                                    String text) {
         NewsCreateDTO dto = NewsCreateDTO.builder()
                 .image(file)
                 .title(title)
@@ -38,7 +37,7 @@ public class NewsController {
         try {
             NewsPageDTO newsPageDTO = newsService.create(dto);
             return new ResponseEntity<>(newsPageDTO, HttpStatus.OK);
-        } catch (IOException exception){
+        } catch (IOException exception) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getLocalizedMessage());
         }
     }
@@ -48,17 +47,17 @@ public class NewsController {
         try {
             NewsPageDTO newsPageDTO = newsService.readCertain(newsId);
             return new ResponseEntity<>(newsPageDTO, HttpStatus.OK);
-        } catch (NoSuchElementException exception){
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
         }
     }
 
     @PostMapping(path = "/{newsId}/comment")
-    public ResponseEntity<?> createComment(@PathVariable long newsId, @RequestBody CommentCreateDTO commentCreateDTO){
+    public ResponseEntity<?> createComment(@PathVariable long newsId, @RequestBody CommentCreateDTO commentCreateDTO) {
         try {
             CommentDTO commentDTO = newsService.createComment(newsId, commentCreateDTO);
             return new ResponseEntity<>(commentDTO, HttpStatus.OK);
-        } catch (NoSuchElementException exception){
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
         }
     }
@@ -66,7 +65,7 @@ public class NewsController {
     @PostMapping(path = "/request")
     public ResponseEntity<?> createNewsRequest(@RequestPart("image") MultipartFile file,
                                                String title,
-                                               String text){
+                                               String text) {
         NewsRequestCreateDTO dto = NewsRequestCreateDTO.builder()
                 .image(file)
                 .title(title)
@@ -75,7 +74,7 @@ public class NewsController {
         try {
             NewsRequestPageDTO newsRequestPageDTO = newsRequestService.create(dto);
             return new ResponseEntity<>(newsRequestPageDTO, HttpStatus.OK);
-        } catch (IOException exception){
+        } catch (IOException exception) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getLocalizedMessage());
         }
     }

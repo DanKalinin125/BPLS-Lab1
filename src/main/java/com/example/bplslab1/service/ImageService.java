@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ImageService {
     private final ImageRepository imageRepository;
 
-    public Image uploadImage(MultipartFile file) throws IOException{
+    public Image uploadImage(MultipartFile file) throws IOException {
         String extension = file.getOriginalFilename().split("\\.")[1];
         String name = getRandomString() + "." + extension;
 
@@ -26,7 +26,7 @@ public class ImageService {
                 .build());
     }
 
-    public byte[] downloadImage(String fileName){
+    public byte[] downloadImage(String fileName) {
         Optional<Image> image = imageRepository.findByName(fileName);
         return Utils.decompressImage(image.get().getImageData());
     }
@@ -41,7 +41,7 @@ public class ImageService {
         StringBuilder sb = new StringBuilder(SIZE);
 
         for (int i = 0; i < SIZE; i++) {
-            int index = (int)(AlphaNumericString.length() * Math.random());
+            int index = (int) (AlphaNumericString.length() * Math.random());
             sb.append(AlphaNumericString.charAt(index));
         }
 

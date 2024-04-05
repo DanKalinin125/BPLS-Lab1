@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="Comments")
+@Table(name = "Comments")
 public class Comment {
     @Transient
     private final int MAX_COMMENT_LENGTH = 4000;
@@ -24,7 +24,7 @@ public class Comment {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="newsFK", nullable=false)
+    @JoinColumn(name = "newsFK", nullable = false)
     private News news;
 
     @Column(name = "commentText", nullable = false, length = MAX_COMMENT_LENGTH)

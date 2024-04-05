@@ -20,10 +20,10 @@ public class ImageController {
 
     @GetMapping(path = "/{fileName}")
     public ResponseEntity<?> downloadImage(@PathVariable String fileName) {
-        try{
+        try {
             byte[] image = imageService.downloadImage(fileName);
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/jpg")).body(image);
-        } catch (NoSuchElementException exception){
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
         }
     }

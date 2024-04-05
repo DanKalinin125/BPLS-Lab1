@@ -30,10 +30,10 @@ public class NewsService {
         return Utils.newsToNewsPageDTO(news);
     }
 
-    public List<NewsInListDTO> readAll(){
+    public List<NewsInListDTO> readAll() {
         List<News> newsRepositoryAll = newsRepository.findAll(Sort.by(Sort.Order.asc("creationDateTime")));
         List<NewsInListDTO> newsList = new ArrayList<>();
-        for (News news : newsRepositoryAll){
+        for (News news : newsRepositoryAll) {
             newsList.add(Utils.newsToNewsInListDTO(news));
         }
         return newsList;

@@ -1,12 +1,9 @@
 package com.example.bplslab1.service;
 
 import com.example.bplslab1.Utils;
-import com.example.bplslab1.dto.NewsCreateDTO;
-import com.example.bplslab1.dto.NewsPageDTO;
 import com.example.bplslab1.dto.NewsRequestCreateDTO;
 import com.example.bplslab1.dto.NewsRequestPageDTO;
 import com.example.bplslab1.entity.Image;
-import com.example.bplslab1.entity.News;
 import com.example.bplslab1.entity.NewsRequest;
 import com.example.bplslab1.repository.NewsRequestRepository;
 import lombok.AllArgsConstructor;
