@@ -34,6 +34,8 @@ public class NewsController {
                 .title(title)
                 .text(text)
                 .build();
+        if (!dto.check())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Отсутствуют обязательные параметры");
         try {
             NewsPageDTO newsPageDTO = newsService.create(dto);
             return new ResponseEntity<>(newsPageDTO, HttpStatus.OK);
@@ -53,9 +55,12 @@ public class NewsController {
     }
 
     @PostMapping(path = "/{newsId}/comment")
-    public ResponseEntity<?> createComment(@PathVariable long newsId, @RequestBody CommentCreateDTO commentCreateDTO) {
+    public ResponseEntity<?> createComment(@PathVariable long newsId, @RequestBody CommentCreateDTO dto) {
+        if (!dto.check())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Отсутствуют обязательные параметры");
+
         try {
-            CommentDTO commentDTO = newsService.createComment(newsId, commentCreateDTO);
+            CommentDTO commentDTO = newsService.createComment(newsId, dto);
             return new ResponseEntity<>(commentDTO, HttpStatus.OK);
         } catch (NoSuchElementException exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
@@ -71,6 +76,9 @@ public class NewsController {
                 .title(title)
                 .text(text)
                 .build();
+        if (!dto.check())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Отсутствуют обязательные параметры");
+
         try {
             NewsRequestPageDTO newsRequestPageDTO = newsRequestService.create(dto);
             return new ResponseEntity<>(newsRequestPageDTO, HttpStatus.OK);
