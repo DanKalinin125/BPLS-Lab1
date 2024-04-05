@@ -26,7 +26,7 @@ public class ImageService {
                 .build());
     }
 
-    public byte[] downloadImage(String fileName) throws IOException {
+    public byte[] downloadImage(String fileName){
         Optional<Image> image = imageRepository.findByName(fileName);
         return Utils.decompressImage(image.get().getImageData());
     }

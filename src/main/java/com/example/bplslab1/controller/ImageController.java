@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/images")
@@ -23,8 +23,8 @@ public class ImageController {
         try{
             byte[] image = imageService.downloadImage(fileName);
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/jpg")).body(image);
-        } catch (IOException ioException){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ioException.getLocalizedMessage());
+        } catch (NoSuchElementException exception){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
         }
     }
 }
