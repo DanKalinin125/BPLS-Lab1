@@ -1,14 +1,15 @@
 package com.example.bplslab1;
 
-import com.example.bplslab1.dto.ImageDTO;
-import com.example.bplslab1.dto.NewsCreateDTO;
-import com.example.bplslab1.dto.NewsInListDTO;
+import com.example.bplslab1.dto.*;
+import com.example.bplslab1.entity.Comment;
 import com.example.bplslab1.entity.Image;
 import com.example.bplslab1.entity.News;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.Date;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
@@ -77,5 +78,27 @@ public class Utils {
                 .text(newsCreateDTO.getText())
                 .creationDateTime(Utils.getCurrentDateTime())
                 .build();
+    }
+
+    public static List<CommentDTO> commentListToCommentDTOList(List<Comment> commentList){
+        List<CommentDTO> commentDTOList = new ArrayList<>();
+        for (Comment comment : commentList){
+            commentDTOList.add(CommentDTO.builder()
+                    .id(comment.getId())
+                    .text(comment.getText())
+                    .username(comment.getUsername())
+                    .creationDateTime(comment.getCreationDateTime())
+                    .build());
+        }
+        return commentDTOList;
+    }
+
+    public static NewsPageDTO newsToNewsPageDTO(News news){
+        return NewsPageDTO.builder()
+                .image(imageToImageDTO(news.getImage()))
+                .title(news.getTitle())
+                .text(news.getText())
+                .creationDateTime(news.getCreationDateTime())
+                .commentList(commentListToCommentDTOList(news.getCommentList())).build();
     }
 }

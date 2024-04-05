@@ -2,6 +2,7 @@ package com.example.bplslab1.controller;
 
 import com.example.bplslab1.dto.NewsCreateDTO;
 import com.example.bplslab1.dto.NewsInListDTO;
+import com.example.bplslab1.dto.NewsPageDTO;
 import com.example.bplslab1.entity.News;
 import com.example.bplslab1.service.NewsService;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/news")
@@ -34,5 +36,15 @@ public class NewsController {
                 .text(text)
                 .build();
         return new ResponseEntity<>(newsService.create(dto), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/{newsId}")
+    public ResponseEntity<?> getCertainNews(@PathVariable long newsId) {
+        try {
+            NewsPageDTO newsPageDTO = newsService.readCertain(newsId);
+            return new ResponseEntity<>(newsPageDTO, HttpStatus.OK);
+        } catch (NoSuchElementException exception){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
+        }
     }
 }

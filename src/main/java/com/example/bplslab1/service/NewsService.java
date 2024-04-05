@@ -1,7 +1,6 @@
 package com.example.bplslab1.service;
 
 import com.example.bplslab1.Utils;
-import com.example.bplslab1.dto.ImageDTO;
 import com.example.bplslab1.dto.NewsCreateDTO;
 import com.example.bplslab1.dto.NewsInListDTO;
 import com.example.bplslab1.dto.NewsPageDTO;
@@ -15,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -34,5 +35,10 @@ public class NewsService {
             newsList.add(Utils.newsToNewsInListDTO(news));
         }
         return newsList;
+    }
+
+    public NewsPageDTO readCertain(long newsId) throws NoSuchElementException {
+        Optional<News> optionalNews = newsRepository.findById(newsId);
+        return Utils.newsToNewsPageDTO(optionalNews.get());
     }
 }
