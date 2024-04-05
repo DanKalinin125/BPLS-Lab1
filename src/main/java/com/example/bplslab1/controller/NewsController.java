@@ -62,7 +62,7 @@ public class NewsController {
         try {
             CommentDTO commentDTO = newsService.createComment(newsId, dto);
             return new ResponseEntity<>(commentDTO, HttpStatus.OK);
-        } catch (NoSuchElementException exception) {
+        } catch (Exception exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
         }
     }
