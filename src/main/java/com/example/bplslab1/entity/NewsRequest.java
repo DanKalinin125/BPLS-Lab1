@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -27,6 +27,7 @@ public class NewsRequest {
     @Column(name = "newsRequestText", nullable = false, columnDefinition = "TEXT")
     private String text;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creationDateTime", nullable = false)
     private Date creationDateTime;
 }

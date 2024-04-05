@@ -3,7 +3,7 @@ package com.example.bplslab1.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Builder

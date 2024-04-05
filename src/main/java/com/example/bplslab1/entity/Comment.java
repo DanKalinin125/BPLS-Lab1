@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Builder
@@ -36,6 +36,7 @@ public class Comment {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creationDateTime", nullable = false)
     private Date creationDateTime;
 }

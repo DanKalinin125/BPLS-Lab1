@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -21,6 +21,7 @@ public class Subscription {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creationDateTime", nullable = false)
     private Date creationDateTime;
 }

@@ -1,13 +1,9 @@
 package com.example.bplslab1.dto;
 
-import com.example.bplslab1.entity.News;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Builder

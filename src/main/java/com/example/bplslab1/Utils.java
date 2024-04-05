@@ -6,7 +6,7 @@ import com.example.bplslab1.entity.Image;
 import com.example.bplslab1.entity.News;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.Date;
+import java.util.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,9 @@ import java.util.zip.Inflater;
 
 public class Utils {
     public static Date getCurrentDateTime(){
-        return new Date(Instant.now().toEpochMilli());
+        Date date = new Date(Instant.now().toEpochMilli());
+        System.out.println(date);
+        return date;
     }
 
 
