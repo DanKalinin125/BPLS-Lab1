@@ -86,4 +86,9 @@ public class NewsController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getLocalizedMessage());
         }
     }
+
+    @GetMapping("/all_requests")
+    public ResponseEntity<?> getAllRequests() {
+        return new ResponseEntity<>(newsRequestService.readAll(), HttpStatus.OK);
+    }
 }

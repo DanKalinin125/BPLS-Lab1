@@ -145,4 +145,13 @@ public class Utils {
                 .creationDateTime(newsRequest.getCreationDateTime())
                 .build();
     }
+
+    public static NewsRequestInListDTO newsRequestToNewsRequestInListDTO(NewsRequest newsRequest) {
+        return NewsRequestInListDTO.builder()
+                .image(Utils.imageToImageDTO(newsRequest.getImage()))
+                .id(newsRequest.getId())
+                .title(newsRequest.getTitle())
+                .creationDateTime(newsRequest.getCreationDateTime())
+                .build();
+    }
 }
