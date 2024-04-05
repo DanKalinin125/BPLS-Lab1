@@ -39,14 +39,15 @@ public class NewsService {
         return newsList;
     }
 
-    public NewsPageDTO readCertain(long newsId) throws NoSuchElementException {
+    public NewsPageDTO readCertain(long newsId) throws Exception {
         Optional<News> optionalNews = newsRepository.findById(newsId);
+        if (optionalNews.isEmpty()) throw new Exception("Новость с указанным id не найдена");
         return Utils.newsToNewsPageDTO(optionalNews.get());
     }
 
     public CommentDTO createComment(long newsId, CommentCreateDTO dto) throws Exception {
         Optional<News> optionalNews = newsRepository.findById(newsId);
-        if (!optionalNews.isPresent()) throw new Exception("Новость с указанным id не найдена");
+        if (optionalNews.isEmpty()) throw new Exception("Новость с указанным id не найдена");
 
         Comment comment = commentRepository.save(Utils.commentCreateDTOToComment(dto, optionalNews.get()));
         return Utils.commentToCommentDTO(comment);

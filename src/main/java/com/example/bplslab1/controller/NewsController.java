@@ -49,7 +49,7 @@ public class NewsController {
         try {
             NewsPageDTO newsPageDTO = newsService.readCertain(newsId);
             return new ResponseEntity<>(newsPageDTO, HttpStatus.OK);
-        } catch (NoSuchElementException exception) {
+        } catch (Exception exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
         }
     }
