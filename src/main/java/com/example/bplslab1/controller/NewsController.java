@@ -1,8 +1,6 @@
 package com.example.bplslab1.controller;
 
-import com.example.bplslab1.dto.NewsCreateDTO;
-import com.example.bplslab1.dto.NewsInListDTO;
-import com.example.bplslab1.dto.NewsPageDTO;
+import com.example.bplslab1.dto.*;
 import com.example.bplslab1.entity.News;
 import com.example.bplslab1.service.NewsService;
 import lombok.AllArgsConstructor;
@@ -43,6 +41,16 @@ public class NewsController {
         try {
             NewsPageDTO newsPageDTO = newsService.readCertain(newsId);
             return new ResponseEntity<>(newsPageDTO, HttpStatus.OK);
+        } catch (NoSuchElementException exception){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
+        }
+    }
+
+    @PostMapping(path = "/{newsId}/comment")
+    public ResponseEntity<?> createComment(@PathVariable long newsId, @RequestBody CommentCreateDTO commentCreateDTO){
+        try {
+            CommentDTO commentDTO = newsService.createComment(newsId, commentCreateDTO);
+            return new ResponseEntity<>(commentDTO, HttpStatus.OK);
         } catch (NoSuchElementException exception){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
         }

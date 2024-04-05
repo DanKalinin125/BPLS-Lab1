@@ -1,11 +1,11 @@
 package com.example.bplslab1.service;
 
 import com.example.bplslab1.Utils;
-import com.example.bplslab1.dto.NewsCreateDTO;
-import com.example.bplslab1.dto.NewsInListDTO;
-import com.example.bplslab1.dto.NewsPageDTO;
+import com.example.bplslab1.dto.*;
+import com.example.bplslab1.entity.Comment;
 import com.example.bplslab1.entity.Image;
 import com.example.bplslab1.entity.News;
+import com.example.bplslab1.repository.CommentRepository;
 import com.example.bplslab1.repository.NewsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -21,6 +21,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class NewsService {
     private final NewsRepository newsRepository;
+    private final CommentRepository commentRepository;
     private final ImageService imageService;
 
     public News create(NewsCreateDTO newsCreateDTO) throws IOException {
@@ -40,5 +41,12 @@ public class NewsService {
     public NewsPageDTO readCertain(long newsId) throws NoSuchElementException {
         Optional<News> optionalNews = newsRepository.findById(newsId);
         return Utils.newsToNewsPageDTO(optionalNews.get());
+    }
+
+    public CommentDTO createComment(long newsId, CommentCreateDTO dto) throws NoSuchElementException {
+        Optional<News> optionalNews = newsRepository.findById(newsId);
+        News news = optionalNews.get();
+        Comment comment = commentRepository.save(Utils.commentCreateDTOToComment(dto, news));
+        return Utils.commentToCommentDTO(comment);
     }
 }

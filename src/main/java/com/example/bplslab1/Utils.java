@@ -76,7 +76,7 @@ public class Utils {
                 .image(image)
                 .title(newsCreateDTO.getTitle())
                 .text(newsCreateDTO.getText())
-                .creationDateTime(Utils.getCurrentDateTime())
+                .creationDateTime(getCurrentDateTime())
                 .build();
     }
 
@@ -100,5 +100,25 @@ public class Utils {
                 .text(news.getText())
                 .creationDateTime(news.getCreationDateTime())
                 .commentList(commentListToCommentDTOList(news.getCommentList())).build();
+    }
+
+    public static Comment commentCreateDTOToComment(CommentCreateDTO dto, News news){
+        return Comment.builder()
+                .news(news)
+                .username(dto.getUsername())
+                .email(dto.getEmail())
+                .text(dto.getText())
+                .creationDateTime(getCurrentDateTime())
+                .build();
+    }
+
+    public static CommentDTO commentToCommentDTO(Comment comment){
+        return CommentDTO.builder()
+                .id(comment.getId())
+                .username(comment.getUsername())
+                .email(comment.getEmail())
+                .text(comment.getText())
+                .creationDateTime(comment.getCreationDateTime())
+                .build();
     }
 }

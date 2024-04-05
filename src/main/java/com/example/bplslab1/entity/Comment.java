@@ -2,17 +2,20 @@ package com.example.bplslab1.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="Comments")
 public class Comment {
+    @Transient
     private final int MAX_COMMENT_LENGTH = 4000;
 
     @Id
