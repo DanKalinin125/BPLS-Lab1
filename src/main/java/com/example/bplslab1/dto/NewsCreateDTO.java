@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
-public class NewsRequestDTO {
+public class NewsCreateDTO {
     private MultipartFile image;
     private String title;
     private String text;

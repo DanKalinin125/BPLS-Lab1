@@ -1,5 +1,11 @@
 package com.example.bplslab1;
 
+import com.example.bplslab1.dto.ImageDTO;
+import com.example.bplslab1.dto.NewsCreateDTO;
+import com.example.bplslab1.dto.NewsInListDTO;
+import com.example.bplslab1.entity.Image;
+import com.example.bplslab1.entity.News;
+
 import java.io.ByteArrayOutputStream;
 import java.sql.Date;
 import java.time.Instant;
@@ -46,5 +52,30 @@ public class Utils {
         } catch (Exception ignored) {
         }
         return outputStream.toByteArray();
+    }
+
+    public static ImageDTO imageToImageDTO(Image image){
+        return ImageDTO.builder()
+                .id(image.getId())
+                .name(image.getName())
+                .type(image.getType())
+                .build();
+    }
+
+    public static NewsInListDTO newsToNewsInListDTO(News news){
+        return NewsInListDTO.builder()
+                .image(Utils.imageToImageDTO(news.getImage()))
+                .title(news.getTitle())
+                .creationDateTime(news.getCreationDateTime())
+                .build();
+    }
+
+    public static News newsCreateDTOToNews(NewsCreateDTO newsCreateDTO, Image image){
+        return News.builder()
+                .image(image)
+                .title(newsCreateDTO.getTitle())
+                .text(newsCreateDTO.getText())
+                .creationDateTime(Utils.getCurrentDateTime())
+                .build();
     }
 }

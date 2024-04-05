@@ -1,6 +1,7 @@
 package com.example.bplslab1.controller;
 
-import com.example.bplslab1.dto.NewsRequestDTO;
+import com.example.bplslab1.dto.NewsCreateDTO;
+import com.example.bplslab1.dto.NewsInListDTO;
 import com.example.bplslab1.entity.News;
 import com.example.bplslab1.service.NewsService;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class NewsController {
     private final NewsService newsService;
 
     @GetMapping
-    public ResponseEntity<List<News>> getAll() {
+    public ResponseEntity<List<NewsInListDTO>> getAll() {
         return new ResponseEntity<>(newsService.readAll(), HttpStatus.OK);
     }
 
@@ -27,7 +28,7 @@ public class NewsController {
     public ResponseEntity<News> create(@RequestPart("image") MultipartFile file,
                                        String title,
                                        String text) throws IOException {
-        NewsRequestDTO dto = NewsRequestDTO.builder()
+        NewsCreateDTO dto = NewsCreateDTO.builder()
                 .image(file)
                 .title(title)
                 .text(text)
