@@ -1,35 +1,34 @@
 package com.example.bplslab1.service;
 
-import com.example.bplslab1.entity.News;
-import lombok.NoArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import com.example.bplslab1.Utils;
+import com.example.bplslab1.entity.Image;
+import com.example.bplslab1.repository.ImageRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
-@NoArgsConstructor
+@AllArgsConstructor
 public class ImageService {
-    private static final String IMAGES_DIRECTORY = "./images/";
-    public String uploadImage(MultipartFile file) throws IOException{
+    private final ImageRepository imageRepository;
+
+    public Image uploadImage(MultipartFile file) throws IOException{
         String extension = file.getOriginalFilename().split("\\.")[1];
-        String url = IMAGES_DIRECTORY + getRandomString() + "." + extension;
+        String name = getRandomString() + "." + extension;
 
-        byte[] bytes = file.getBytes();
-        Path path = Paths.get(url);
-        Files.write(path, bytes);
-
-        return url;
+        return imageRepository.save(Image.builder()
+                .name(name)
+                .type(file.getContentType())
+                .imageData(Utils.compressImage(file.getBytes()))
+                .build());
     }
 
-    public byte[] findImage(String fileName) throws IOException {
-        String url = IMAGES_DIRECTORY + fileName;
-        return Files.readAllBytes(Paths.get(url));
+    public byte[] downloadImage(String fileName) throws IOException {
+        Optional<Image> image = imageRepository.findByName(fileName);
+        return Utils.decompressImage(image.get().getImageData());
     }
 
     private String getRandomString() {

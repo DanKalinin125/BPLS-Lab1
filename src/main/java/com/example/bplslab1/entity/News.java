@@ -21,8 +21,9 @@ public class News {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "imageUrl")
-    private String imageUrl;
+    @OneToOne
+    @JoinColumn(name = "imageFK", nullable = false)
+    private Image image;
 
     @Column(name = "newsTitle", nullable = false)
     private String title;

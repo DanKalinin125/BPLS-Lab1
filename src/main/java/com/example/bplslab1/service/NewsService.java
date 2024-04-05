@@ -2,6 +2,7 @@ package com.example.bplslab1.service;
 
 import com.example.bplslab1.Utils;
 import com.example.bplslab1.dto.NewsRequestDTO;
+import com.example.bplslab1.entity.Image;
 import com.example.bplslab1.entity.News;
 import com.example.bplslab1.repository.NewsRepository;
 import lombok.AllArgsConstructor;
@@ -15,12 +16,12 @@ import java.util.List;
 @AllArgsConstructor
 public class NewsService {
     private final NewsRepository newsRepository;
-    private final ImageService imageService = new ImageService();
+    private final ImageService imageService;
 
     public News create(NewsRequestDTO newsRequestDTO) throws IOException {
-        String imageURL = imageService.uploadImage(newsRequestDTO.getImage());
+        Image image = imageService.uploadImage(newsRequestDTO.getImage());
         return newsRepository.save(News.builder()
-                .imageUrl(imageURL)
+                .image(image)
                 .title(newsRequestDTO.getTitle())
                 .text(newsRequestDTO.getText())
                 .creationDateTime(Utils.getCurrentDateTime())
