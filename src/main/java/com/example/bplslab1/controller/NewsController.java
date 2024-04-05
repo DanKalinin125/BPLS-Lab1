@@ -24,8 +24,8 @@ public class NewsController {
         return new ResponseEntity<>(newsService.readAll(), HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<News> create(@RequestPart("image") MultipartFile file,
+    @PostMapping
+    public ResponseEntity<NewsPageDTO> create(@RequestPart("image") MultipartFile file,
                                        String title,
                                        String text) throws IOException {
         NewsCreateDTO dto = NewsCreateDTO.builder()

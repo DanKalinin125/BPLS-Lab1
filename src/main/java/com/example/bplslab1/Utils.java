@@ -15,9 +15,7 @@ import java.util.zip.Inflater;
 
 public class Utils {
     public static Date getCurrentDateTime(){
-        Date date = new Date(Instant.now().toEpochMilli());
-        System.out.println(date);
-        return date;
+        return new Date(Instant.now().toEpochMilli());
     }
 
 
@@ -84,13 +82,15 @@ public class Utils {
 
     public static List<CommentDTO> commentListToCommentDTOList(List<Comment> commentList){
         List<CommentDTO> commentDTOList = new ArrayList<>();
-        for (Comment comment : commentList){
-            commentDTOList.add(CommentDTO.builder()
-                    .id(comment.getId())
-                    .text(comment.getText())
-                    .username(comment.getUsername())
-                    .creationDateTime(comment.getCreationDateTime())
-                    .build());
+        if (commentList != null) {
+            for (Comment comment : commentList) {
+                commentDTOList.add(CommentDTO.builder()
+                        .id(comment.getId())
+                        .text(comment.getText())
+                        .username(comment.getUsername())
+                        .creationDateTime(comment.getCreationDateTime())
+                        .build());
+            }
         }
         return commentDTOList;
     }

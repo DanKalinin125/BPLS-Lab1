@@ -24,9 +24,10 @@ public class NewsService {
     private final CommentRepository commentRepository;
     private final ImageService imageService;
 
-    public News create(NewsCreateDTO newsCreateDTO) throws IOException {
+    public NewsPageDTO create(NewsCreateDTO newsCreateDTO) throws IOException {
         Image image = imageService.uploadImage(newsCreateDTO.getImage());
-        return newsRepository.save(Utils.newsCreateDTOToNews(newsCreateDTO, image));
+        News news = newsRepository.save(Utils.newsCreateDTOToNews(newsCreateDTO, image));
+        return Utils.newsToNewsPageDTO(news);
     }
 
     public List<NewsInListDTO> readAll(){
