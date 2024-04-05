@@ -21,6 +21,9 @@ public class Image {
     @OneToOne(mappedBy = "image", cascade = CascadeType.ALL)
     private News news;
 
+    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL)
+    private NewsRequest newsRequest;
+
     @Column(name = "name", nullable = false)
     private String name;
 

@@ -2,12 +2,14 @@ package com.example.bplslab1.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -18,8 +20,9 @@ public class NewsRequest {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "imageUrl")
-    private String imageUrl;
+    @OneToOne
+    @JoinColumn(name = "imageFK", nullable = false)
+    private Image image;
 
     @Column(name = "newsRequestTitle", nullable = false)
     private String title;

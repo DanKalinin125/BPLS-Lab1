@@ -4,6 +4,7 @@ import com.example.bplslab1.dto.*;
 import com.example.bplslab1.entity.Comment;
 import com.example.bplslab1.entity.Image;
 import com.example.bplslab1.entity.News;
+import com.example.bplslab1.entity.NewsRequest;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
@@ -88,6 +89,7 @@ public class Utils {
                         .id(comment.getId())
                         .text(comment.getText())
                         .username(comment.getUsername())
+                        .email(comment.getEmail())
                         .creationDateTime(comment.getCreationDateTime())
                         .build());
             }
@@ -101,7 +103,8 @@ public class Utils {
                 .title(news.getTitle())
                 .text(news.getText())
                 .creationDateTime(news.getCreationDateTime())
-                .commentList(commentListToCommentDTOList(news.getCommentList())).build();
+                .commentList(commentListToCommentDTOList(news.getCommentList()))
+                .build();
     }
 
     public static Comment commentCreateDTOToComment(CommentCreateDTO dto, News news){
@@ -121,6 +124,24 @@ public class Utils {
                 .email(comment.getEmail())
                 .text(comment.getText())
                 .creationDateTime(comment.getCreationDateTime())
+                .build();
+    }
+
+    public static NewsRequest newsRequestCreateDTOToNewsRequest(NewsRequestCreateDTO dto, Image image){
+        return NewsRequest.builder()
+                .image(image)
+                .title(dto.getTitle())
+                .text(dto.getText())
+                .creationDateTime(getCurrentDateTime())
+                .build();
+    }
+
+    public static NewsRequestPageDTO newsRequestToNewsRequestPageDTO(NewsRequest newsRequest){
+        return NewsRequestPageDTO.builder()
+                .image(imageToImageDTO(newsRequest.getImage()))
+                .title(newsRequest.getTitle())
+                .text(newsRequest.getText())
+                .creationDateTime(newsRequest.getCreationDateTime())
                 .build();
     }
 }

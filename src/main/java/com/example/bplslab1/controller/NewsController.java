@@ -2,6 +2,7 @@ package com.example.bplslab1.controller;
 
 import com.example.bplslab1.dto.*;
 import com.example.bplslab1.entity.News;
+import com.example.bplslab1.service.NewsRequestService;
 import com.example.bplslab1.service.NewsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.NoSuchElementException;
 @AllArgsConstructor
 public class NewsController {
     private final NewsService newsService;
+    private final NewsRequestService newsRequestService;
 
     @GetMapping
     public ResponseEntity<List<NewsInListDTO>> getAll() {
@@ -25,15 +27,20 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<NewsPageDTO> create(@RequestPart("image") MultipartFile file,
+    public ResponseEntity<?> create(@RequestPart("image") MultipartFile file,
                                        String title,
-                                       String text) throws IOException {
+                                       String text){
         NewsCreateDTO dto = NewsCreateDTO.builder()
                 .image(file)
                 .title(title)
                 .text(text)
                 .build();
-        return new ResponseEntity<>(newsService.create(dto), HttpStatus.OK);
+        try {
+            NewsPageDTO newsPageDTO = newsService.create(dto);
+            return new ResponseEntity<>(newsPageDTO, HttpStatus.OK);
+        } catch (IOException exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getLocalizedMessage());
+        }
     }
 
     @GetMapping(path = "/{newsId}")
@@ -53,6 +60,23 @@ public class NewsController {
             return new ResponseEntity<>(commentDTO, HttpStatus.OK);
         } catch (NoSuchElementException exception){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getLocalizedMessage());
+        }
+    }
+
+    @PostMapping(path = "/request")
+    public ResponseEntity<?> createNewsRequest(@RequestPart("image") MultipartFile file,
+                                               String title,
+                                               String text){
+        NewsRequestCreateDTO dto = NewsRequestCreateDTO.builder()
+                .image(file)
+                .title(title)
+                .text(text)
+                .build();
+        try {
+            NewsRequestPageDTO newsRequestPageDTO = newsRequestService.create(dto);
+            return new ResponseEntity<>(newsRequestPageDTO, HttpStatus.OK);
+        } catch (IOException exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getLocalizedMessage());
         }
     }
 }
